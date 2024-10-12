@@ -12,5 +12,18 @@ app.append(header);
 // Step 1: Adding a Button
 const button = document.createElement("button");
 button.innerHTML = "🦆";
+
+// Step 2: Adding a counter
+let numDucks: number = 0;
+const displayDucks = document.createElement("counter");
+displayDucks.innerHTML = `${numDucks}`;
+
+button.onclick = () => {
+    numDucks++;
+    displayDucks.innerHTML = `${numDucks}`;
+};
+
 app.append(button);
+app.append(displayDucks);
+
 
