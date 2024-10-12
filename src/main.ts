@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "My fantastic game";
+const gameName = "Duck game";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -16,11 +16,11 @@ button.innerHTML = "🦆";
 // Step 2: Adding a counter
 let numDucks: number = 0;
 const displayDucks = document.createElement("counter");
-displayDucks.innerHTML = `${numDucks}`;
+displayDucks.innerHTML = `<br><br>${numDucks}`;
 
 button.onclick = () => {
     numDucks++;
-    displayDucks.innerHTML = `${numDucks}`;
+    displayDucks.innerHTML = `<br><br>${numDucks}`;
 };
 
 app.append(button);
