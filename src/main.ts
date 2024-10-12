@@ -44,6 +44,12 @@ function contGrowth(time){
         timestamp = time;
         updateDucks(addCount);
     }
+    // Step 5: check if button should be disabled
+    if(numDucks >= 10){
+        upgrade.disabled = false;
+    }else{
+        upgrade.disabled = true;
+    }
     
     requestAnimationFrame(contGrowth);
 }
