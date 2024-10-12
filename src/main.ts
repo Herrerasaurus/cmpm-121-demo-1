@@ -23,12 +23,26 @@ button.onclick = () => {
 };
 
 // Step 3: Automatic Clicking
-const interval = setInterval(updateDucks, 1000);
+// removing for step 4 // const interval = setInterval(updateDucks, 1000);
 
 function updateDucks(){
     numDucks++;
     displayDucks.innerHTML = `<br><br>${numDucks} Ducks`;
 }
+
+// Step 4: Continuous Growth
+let timestamp = 0;
+requestAnimationFrame(contGrowth);
+
+function contGrowth(time){
+    if((time - timestamp >= 1000) ){
+        timestamp = time;
+        updateDucks();
+    }
+    requestAnimationFrame(contGrowth);
+}
+
+
 app.append(button);
 app.append(displayDucks);
 
