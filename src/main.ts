@@ -61,15 +61,24 @@ function contGrowth(time:number){
     requestAnimationFrame(contGrowth);
 }
 
-// Step 5: Purchasing an upgrade
+// Step 5 + 6: Purchasing an upgrade
 upgrade1.onclick = () => {
-    addCount += 1;
+    addCount += 0.1;
+    numDucks -= 10;
+};
+upgrade2.onclick = () => {
+    addCount += 2;
+    numDucks -= 10;
+};
+upgrade3.onclick = () => {
+    addCount += 50;
     numDucks -= 10;
 };
 
 
 
 
+// add buttons to screen
 app.append(button);
 app.append(displayDucks);
 app.append(upgrade1);
