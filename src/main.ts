@@ -13,9 +13,16 @@ app.append(header);
 const button = document.createElement("button");
 button.innerHTML = "🦆";
 
-// Step 5: add new button
-const upgrade = document.createElement("button");
-upgrade.innerHTML = "More Ducks";
+// Step 5: add new upgrade button
+const upgrade1 = document.createElement("button");
+upgrade1.innerHTML = "More Ducks";
+
+// Step 6: add additional upgrades
+const upgrade2 = document.createElement("button");
+upgrade2.innerHTML = "Even More Ducks";
+const upgrade3 = document.createElement("button");
+upgrade3.innerHTML = "Way More Ducks";
+
 
 // Step 2: Adding a counter
 let numDucks: number = 0;
@@ -30,7 +37,7 @@ button.onclick = () => {
 
 // Step 3: Automatic Clicking
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
-function updateDucks(x){
+function updateDucks(x:number){
     numDucks+= x;
     displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
 }
@@ -39,32 +46,35 @@ function updateDucks(x){
 let timestamp = 0;
 requestAnimationFrame(contGrowth);
 
-function contGrowth(time){
+function contGrowth(time:number){
     if((time - timestamp >= 1000) ){
         timestamp = time;
         updateDucks(addCount);
     }
     // Step 5: check if button should be disabled
     if(numDucks >= 10){
-        upgrade.disabled = false;
+        upgrade1.disabled = false;
     }else{
-        upgrade.disabled = true;
+        upgrade1.disabled = true;
     }
     
     requestAnimationFrame(contGrowth);
 }
 
 // Step 5: Purchasing an upgrade
-upgrade.onclick = () => {
+upgrade1.onclick = () => {
     addCount += 1;
     numDucks -= 10;
 };
 
 
 
+
 app.append(button);
 app.append(displayDucks);
-app.append(upgrade);
+app.append(upgrade1);
+app.append(upgrade2);
+app.append(upgrade3);
 
 
 
