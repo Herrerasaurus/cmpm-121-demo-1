@@ -16,14 +16,21 @@ button.innerHTML = "🦆";
 // Step 2: Adding a counter
 let numDucks: number = 0;
 const displayDucks = document.createElement("counter");
-displayDucks.innerHTML = `<br><br>${numDucks}`;
+displayDucks.innerHTML = `<br><br>${numDucks} Ducks`;
 
 button.onclick = () => {
-    numDucks++;
-    displayDucks.innerHTML = `<br><br>${numDucks}`;
+    updateDucks();
 };
 
+// Step 3: Automatic Clicking
+const interval = setInterval(updateDucks, 1000);
+
+function updateDucks(){
+    numDucks++;
+    displayDucks.innerHTML = `<br><br>${numDucks} Ducks`;
+}
 app.append(button);
 app.append(displayDucks);
+
 
 
