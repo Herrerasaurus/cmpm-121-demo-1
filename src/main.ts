@@ -47,7 +47,7 @@ let timestamp = 0;
 requestAnimationFrame(contGrowth);
 
 function contGrowth(time:number){
-    if((time - timestamp >= 1000) ){
+    if((!timestamp || time - timestamp >= 1000) ){
         timestamp = time;
         updateDucks(addCount);
     }
@@ -63,17 +63,17 @@ function contGrowth(time:number){
 
 // Step 5 + 6: Purchasing an upgrade
 upgrade1.onclick = () => {
-    addCount += 0.1;
+    addCount += 1;
     numDucks -= 10;
 };
-upgrade2.onclick = () => {
+/*upgrade2.onclick = () => {
     addCount += 2;
     numDucks -= 10;
 };
 upgrade3.onclick = () => {
     addCount += 50;
     numDucks -= 10;
-};
+};*/
 
 
 
@@ -82,8 +82,8 @@ upgrade3.onclick = () => {
 app.append(button);
 app.append(displayDucks);
 app.append(upgrade1);
-app.append(upgrade2);
-app.append(upgrade3);
+//app.append(upgrade2);
+//app.append(upgrade3);
 
 
 
