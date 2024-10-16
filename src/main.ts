@@ -56,6 +56,17 @@ function contGrowth(time: number) {
   } else {
     upgrade1.disabled = true;
   }
+  // Check button status for step 6 upgrades
+  if (numDucks >= 100) {
+    upgrade2.disabled = false;
+  } else {
+    upgrade2.disabled = true;
+  }
+  if (numDucks >= 1000) {
+    upgrade3.disabled = false
+  } else {
+    upgrade3.disabled = true;
+  }
 
   requestAnimationFrame(contGrowth);
 }
