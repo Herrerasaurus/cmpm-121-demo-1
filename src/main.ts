@@ -23,7 +23,6 @@ upgrade2.innerHTML = "Even More Ducks";
 const upgrade3 = document.createElement("button");
 upgrade3.innerHTML = "Way More Ducks";
 
-
 // Step 2: Adding a counter
 let numDucks: number = 0;
 const displayDucks = document.createElement("counter");
@@ -32,58 +31,52 @@ displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
 let addCount = 0;
 
 button.onclick = () => {
-    updateDucks(1);
+  updateDucks(1);
 };
 
 // Step 3: Automatic Clicking
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
-function updateDucks(x:number){
-    numDucks+= x;
-    displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+function updateDucks(x: number) {
+  numDucks += x;
+  displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
 }
 
 // Step 4: Continuous Growth
 let timestamp = 0;
 requestAnimationFrame(contGrowth);
 
-function contGrowth(time:number){
-    if((!timestamp || time - timestamp >= 1000) ){
-        timestamp = time;
-        updateDucks(addCount);
-    }
-    // Step 5: check if button should be disabled
-    if(numDucks >= 10){
-        upgrade1.disabled = false;
-    }else{
-        upgrade1.disabled = true;
-    }
-    
-    requestAnimationFrame(contGrowth);
+function contGrowth(time: number) {
+  if (!timestamp || time - timestamp >= 1000) {
+    timestamp = time;
+    updateDucks(addCount);
+  }
+  // Step 5: check if button should be disabled
+  if (numDucks >= 10) {
+    upgrade1.disabled = false;
+  } else {
+    upgrade1.disabled = true;
+  }
+
+  requestAnimationFrame(contGrowth);
 }
 
 // Step 5 + 6: Purchasing an upgrade
 upgrade1.onclick = () => {
-    addCount += 1;
-    numDucks -= 10;
+  addCount += 1;
+  numDucks -= 10;
 };
-/*upgrade2.onclick = () => {
+upgrade2.onclick = () => {
     addCount += 2;
     numDucks -= 10;
 };
 upgrade3.onclick = () => {
     addCount += 50;
     numDucks -= 10;
-};*/
-
-
-
+};
 
 // add buttons to screen
 app.append(button);
 app.append(displayDucks);
 app.append(upgrade1);
-//app.append(upgrade2);
-//app.append(upgrade3);
-
-
-
+app.append(upgrade2);
+app.append(upgrade3);
