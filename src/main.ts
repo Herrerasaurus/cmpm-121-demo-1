@@ -13,15 +13,20 @@ app.append(header);
 const button = document.createElement("button");
 button.innerHTML = "🦆";
 
+// upgrade counters
+let up1 = 0;
+let up2 = 0;
+let up3 = 0;
+
 // Step 5: add new upgrade button
 const upgrade1 = document.createElement("button");
-upgrade1.innerHTML = "More Ducks";
+upgrade1.innerHTML = `More Ducks (${up1})`;
 
 // Step 6: add additional upgrades
 const upgrade2 = document.createElement("button");
-upgrade2.innerHTML = "Even More Ducks";
+upgrade2.innerHTML = `Even More Ducks (${up2})`;
 const upgrade3 = document.createElement("button");
-upgrade3.innerHTML = "Way More Ducks";
+upgrade3.innerHTML = `Way More Ducks (${up3})`;
 
 // Step 2: Adding a counter
 let numDucks: number = 0;
@@ -75,19 +80,22 @@ function contGrowth(time: number) {
 upgrade1.onclick = () => {
   addCount += 0.1;
   numDucks -= 10;
+  up1++;
 };
 upgrade2.onclick = () => {
     addCount += 2;
     numDucks -= 100;
+    up2++;
 };
 upgrade3.onclick = () => {
     addCount += 50;
     numDucks -= 1000;
+    up3++;
 };
 
 // Step 6: staus display
 const status = document.createElement("p");
-status.innerHTML = '${addCount} Ducks per second';
+status.innerHTML = `${addCount} Ducks per second`;
 app.append(status);
 
 // add buttons to screen
