@@ -12,7 +12,7 @@ app.append(header);
 // Step 1: Adding a Button
 const button = document.createElement("button");
 button.style.borderRadius = "50%";
-button.style.padding = "10px 20px";
+button.style.padding = "20px 20px";
 button.innerHTML = "🦆";
 
 // upgrade counters
@@ -66,11 +66,14 @@ button.onclick = () => {
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
 function updateDucks(x: number) {
   numDucks += x;
+  button.style.fontSize = ((numDucks*0.1)+ 10) + "px";
+
   // round numbers
   numDucks = Math.round(numDucks * 100) / 100;
   addCount = Math.round(addCount * 100) / 100;
+
   for(let i = 0; i < availableItems.length; i++) {
-    availableItems[i].rate = Math.round(availableItems[i].rate * 100) / 100;
+    availableItems[i].cost = Math.round(availableItems[i].cost * 100) / 100;
     upgradeButtons[i].innerHTML = `${availableItems[i].name} (${totalUpgrades[i]})<br> cost: ${availableItems[i].cost}`;
     
   }
