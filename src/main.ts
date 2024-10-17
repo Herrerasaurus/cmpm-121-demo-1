@@ -106,13 +106,30 @@ function contGrowth(time: number) {
   requestAnimationFrame(contGrowth);
 }
 
+let duckCount = 0;
+let loopCount = 0;
+let prevCount = 0;
 // Step 5 + 6: Purchasing an upgrade
 for(let i = 0; i < availableItems.length; i++) {
     upgradeButtons[i].onclick = () => {
+        prevCount = addCount;
         addCount += availableItems[i].rate;
         numDucks -= availableItems[i].cost;
         totalUpgrades[i]++;
         availableItems[i].cost = availableItems[i].cost * 1.15;
+
+        //add more ducks
+        loopCount = availableItems[i].rate;
+        if(Math.floor(addCount) - Math.floor(prevCount) > 0) {
+            for(let j = 1; j < loopCount; j++) {
+                button.innerHTML += "🦆";
+                duckCount++;
+                if(duckCount > 10) {
+                    button.innerHTML += "<br>";
+                    duckCount = 0;
+                }
+            }
+        }
     };
 }
 
