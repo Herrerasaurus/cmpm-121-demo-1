@@ -132,11 +132,11 @@ for(let i = 0; i < availableItems.length; i++) {
         availableItems[i].cost = availableItems[i].cost * 1.15;
 
         // add perks to attract ducks - 🍞🥖🥨🥐🥪
-        if(availableItems[i].item === "🍞" && totalUpgrades[i]==10) {
+        /*if(availableItems[i].item === "🍞" && totalUpgrades[i]==10) {
             button.innerHTML += `${availableItems[i].item}`;
         } else if(!(availableItems[i].item === "🍞")) {
             button.innerHTML += `${availableItems[i].item}`;
-        }
+        }*/
 
         //add more ducks
         loopCount = availableItems[i].rate;
