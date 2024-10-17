@@ -1,6 +1,7 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
+app.style.backgroundColor = "skyblue";
 
 const gameName = "Duck game";
 document.title = gameName;
@@ -9,30 +10,37 @@ const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
+
 // Step 1: Adding a Button
 const button = document.createElement("button");
 button.style.borderRadius = "50%";
 button.style.padding = "20px 20px";
 button.innerHTML = "🍞";
+button.style.backgroundColor = "darkblue";
 
 // upgrade counters
 let up1 = 0;
 let up2 = 0;
 let up3 = 0;
-const totalUpgrades = [up1, up2, up3];
+let up4 = 0;
+let up5 = 0;
+const totalUpgrades = [up1, up2, up3, up4, up5];
 
 //Step 9: data-driven design
 interface Item {
     name: string,
     cost: number,
     rate: number,
-    item: string
+    item: string,
+    desc: string
   };
 //🍞🥖🥨🥐🥪
 const availableItems : Item[] = [
-    {name: "Feed Loaf", cost: 10, rate: 0.1, item: "🍞"},
-    {name: "Feed Baguette", cost: 100, rate: 2, item: "🥖"},
-    {name: "Feed Pretzel", cost: 1000, rate: 50, item: "🥨"},
+    {name: "Plain Loaf", cost: 10, rate: 0.1, item: "🍞", desc: "A simple offering to attract modest duck attention."},
+    {name: "Baguette", cost: 100, rate: 2, item: "🥖", desc: "The perfect bread for throwing across the lake."},
+    {name: "Pretzel", cost: 1000, rate: 50, item: "🥨", desc: "A salty twist which draws in hoards of ducks."},
+    {name: "Croissant", cost: 10000, rate: 100, item: "🥐", desc: "Elegant and falky, this buttery delight is irresistible."},
+    {name: "Sandwich", cost: 100000, rate: 1000, item: "🥪", desc: "A whole meal in bread form! Ducks come in the thousands!"}
 ];
 
 // Step 5: add new upgrade button
@@ -40,10 +48,13 @@ const upgrade1 = document.createElement("button");
 // Step 6: add additional upgrades
 const upgrade2 = document.createElement("button");
 const upgrade3 = document.createElement("button");
-const upgradeButtons = [upgrade1, upgrade2, upgrade3];
+const upgrade4 = document.createElement("button");
+const upgrade5 = document.createElement("button");
+const upgradeButtons = [upgrade1, upgrade2, upgrade3, upgrade4, upgrade5];
 
-for(let i = 0; i < 3; i++) {
+for(let i = 0; i < upgradeButtons.length; i++) {
     upgradeButtons[i].innerHTML = `${availableItems[0].name} (${totalUpgrades[i]})`;
+    upgradeButtons[i].style.backgroundColor = "darkblue";
 }
 
 
@@ -76,6 +87,7 @@ function updateDucks(x: number) {
   for(let i = 0; i < availableItems.length; i++) {
     availableItems[i].cost = Math.round(availableItems[i].cost * 100) / 100;
     upgradeButtons[i].innerHTML = `${availableItems[i].name} ${availableItems[i].item} (${totalUpgrades[i]})<br> cost: ${availableItems[i].cost}`;
+    upgradeButtons[i].innerHTML += `<br>${availableItems[i].desc}`;
     
   }
 
@@ -147,7 +159,6 @@ for(let i = 0; i < availableItems.length; i++) {
 app.append(status);
 app.append(button);
 app.append(displayDucks);
-app.append(upgrade1);
-app.append(upgrade2);
-app.append(upgrade3);
-
+for(let i = 0; i < upgradeButtons.length; i++) {
+    app.append(upgradeButtons[i]);
+}
