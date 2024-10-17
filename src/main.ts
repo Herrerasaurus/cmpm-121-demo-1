@@ -48,11 +48,18 @@ button.onclick = () => {
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
 function updateDucks(x: number) {
   numDucks += x;
-  displayDucks.innerHTML = `<br><br>${numDucks.toFixed(1)} Ducks<br><br>`;
-  upgrade1.innerHTML = `More Ducks (${up1})`;
-  upgrade2.innerHTML = `Even More Ducks (${up2})`;
-  upgrade3.innerHTML = `Way More Ducks (${up3})`;
-  status.innerHTML = `${addCount.toFixed(1)} Ducks per second`;
+  // round numbers
+  numDucks = Math.round(numDucks * 100) / 100;
+  addCount = Math.round(addCount * 100) / 100;
+  upgrade1Price = Math.round(upgrade1Price * 100) / 100;
+  upgrade2Price = Math.round(upgrade2Price * 100) / 100;
+  upgrade3Price = Math.round(upgrade3Price * 100) / 100;
+
+  displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+  upgrade1.innerHTML = `More Ducks (${up1})<br> cost: ${upgrade1Price}`;
+  upgrade2.innerHTML = `Even More Ducks (${up2})<br> cost: ${upgrade2Price}`;
+  upgrade3.innerHTML = `Way More Ducks (${up3})<br> cost: ${upgrade3Price}`;
+  status.innerHTML = `${addCount} Ducks per second`;
   
 
 }
