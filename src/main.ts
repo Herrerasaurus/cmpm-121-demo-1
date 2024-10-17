@@ -43,7 +43,6 @@ const upgradeButtons = [upgrade1, upgrade2, upgrade3];
 
 for(let i = 0; i < 3; i++) {
     upgradeButtons[i].innerHTML = `${availableItems[0].name} (${totalUpgrades[i]})`;
-
 }
 
 
@@ -72,13 +71,11 @@ function updateDucks(x: number) {
   addCount = Math.round(addCount * 100) / 100;
   for(let i = 0; i < availableItems.length; i++) {
     availableItems[i].rate = Math.round(availableItems[i].rate * 100) / 100;
+    upgradeButtons[i].innerHTML = `${availableItems[i].name} (${totalUpgrades[i]})<br> cost: ${availableItems[i].cost}`;
     
   }
 
   displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
-  upgrade1.innerHTML = `More Ducks (${up1})<br> cost: ${availableItems[0].cost}`;
-  upgrade2.innerHTML = `Even More Ducks (${up2})<br> cost: ${availableItems[1].cost}`;
-  upgrade3.innerHTML = `Way More Ducks (${up3})<br> cost: ${availableItems[2].cost}`;
   status.innerHTML = `${addCount} Ducks per second`;
   
 
@@ -97,59 +94,25 @@ function contGrowth(time: number) {
   // Step 5: check if button should be disabled
   for(let i = 0; i < availableItems.length; i++) {
     if (numDucks >= availableItems[i].cost) {
-        upgrade1.disabled = false;
+        upgradeButtons[i].disabled = false;
     } else {
-        upgrade1.disabled = true;
+        upgradeButtons[i].disabled = true;
     }
-  }
-
-  if (numDucks >= upgrade1Price) {
-    upgrade1.disabled = false;
-  } else {
-    upgrade1.disabled = true;
-  }
-  // Check button status for step 6 upgrades
-  if (numDucks >= upgrade2Price) {
-    upgrade2.disabled = false;
-  } else {
-    upgrade2.disabled = true;
-  }
-  if (numDucks >= upgrade3Price) {
-    upgrade3.disabled = false
-  } else {
-    upgrade3.disabled = true;
   }
 
   requestAnimationFrame(contGrowth);
 }
 
 // Step 5 + 6: Purchasing an upgrade
-upgrade1.onclick = () => {
-  addCount += 0.1;
-  numDucks -= 10;
-  up1++;
-  //increase by a growth factor of 1.15
-  upgrade1Price = upgrade1Price * 1.15;
-  console.log(upgrade1Price);
-};
-upgrade2.onclick = () => {
-    addCount += 2;
-    numDucks -= 100;
-    up2++;
-    //increase by a growth factor of 1.15
-    upgrade2Price = upgrade2Price * 1.15;
-    console.log(upgrade2Price);
+for(let i = 0; i < availableItems.length; i++) {
+    upgradeButtons[i].onclick = () => {
+        addCount += availableItems[i].rate;
+        numDucks -= availableItems[i].cost;
+        totalUpgrades[i]++;
+        availableItems[i].cost = availableItems[i].cost * 1.15;
+    };
+}
 
-
-};
-upgrade3.onclick = () => {
-    addCount += 50;
-    numDucks -= 1000;
-    up3++;
-    //increase by a growth factor of 1.15
-    upgrade3Price = upgrade3Price * 1.15;
-    console.log(upgrade3Price);
-};
 
 
 // add buttons to screen
