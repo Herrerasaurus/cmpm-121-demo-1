@@ -35,6 +35,11 @@ displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
 
 let addCount = 0;
 
+// Step 6: staus display
+const status = document.createElement("p");
+status.innerHTML = `${addCount} Ducks per second`;
+
+
 button.onclick = () => {
   updateDucks(1);
 };
@@ -44,6 +49,12 @@ button.onclick = () => {
 function updateDucks(x: number) {
   numDucks += x;
   displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+  upgrade1.innerHTML = `More Ducks (${up1})`;
+  upgrade2.innerHTML = `Even More Ducks (${up2})`;
+  upgrade3.innerHTML = `Way More Ducks (${up3})`;
+  status.innerHTML = `${addCount} Ducks per second`;
+  
+
 }
 
 // Step 4: Continuous Growth
@@ -93,14 +104,12 @@ upgrade3.onclick = () => {
     up3++;
 };
 
-// Step 6: staus display
-const status = document.createElement("p");
-status.innerHTML = `${addCount} Ducks per second`;
-app.append(status);
 
 // add buttons to screen
+app.append(status);
 app.append(button);
 app.append(displayDucks);
 app.append(upgrade1);
 app.append(upgrade2);
 app.append(upgrade3);
+
