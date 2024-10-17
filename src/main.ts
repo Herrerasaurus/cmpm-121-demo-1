@@ -11,22 +11,41 @@ app.append(header);
 
 // Step 1: Adding a Button
 const button = document.createElement("button");
+button.style.borderRadius = "50%";
+button.style.padding = "10px 20px";
 button.innerHTML = "🦆";
 
 // upgrade counters
 let up1 = 0;
 let up2 = 0;
 let up3 = 0;
+const totalUpgrades = [up1, up2, up3];
+
+//Step 9: data-driven design
+interface Item {
+    name: string,
+    cost: number,
+    rate: number
+  };
+  
+const availableItems : Item[] = [
+    {name: "More Ducks", cost: 10, rate: 0.1},
+    {name: "Even More Ducks", cost: 100, rate: 2},
+    {name: "Way More Ducks", cost: 1000, rate: 50},
+];
 
 // Step 5: add new upgrade button
 const upgrade1 = document.createElement("button");
-upgrade1.innerHTML = `More Ducks (${up1})`;
-
 // Step 6: add additional upgrades
 const upgrade2 = document.createElement("button");
-upgrade2.innerHTML = `Even More Ducks (${up2})`;
 const upgrade3 = document.createElement("button");
-upgrade3.innerHTML = `Way More Ducks (${up3})`;
+const upgradeButtons = [upgrade1, upgrade2, upgrade3];
+
+for(let i = 0; i < 3; i++) {
+    upgradeButtons[i].innerHTML = `${availableItems[0].name} (${totalUpgrades[i]})`;
+
+}
+
 
 // Step 2: Adding a counter
 let numDucks: number = 0;
@@ -51,14 +70,15 @@ function updateDucks(x: number) {
   // round numbers
   numDucks = Math.round(numDucks * 100) / 100;
   addCount = Math.round(addCount * 100) / 100;
-  upgrade1Price = Math.round(upgrade1Price * 100) / 100;
-  upgrade2Price = Math.round(upgrade2Price * 100) / 100;
-  upgrade3Price = Math.round(upgrade3Price * 100) / 100;
+  for(let i = 0; i < availableItems.length; i++) {
+    availableItems[i].rate = Math.round(availableItems[i].rate * 100) / 100;
+    
+  }
 
   displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
-  upgrade1.innerHTML = `More Ducks (${up1})<br> cost: ${upgrade1Price}`;
-  upgrade2.innerHTML = `Even More Ducks (${up2})<br> cost: ${upgrade2Price}`;
-  upgrade3.innerHTML = `Way More Ducks (${up3})<br> cost: ${upgrade3Price}`;
+  upgrade1.innerHTML = `More Ducks (${up1})<br> cost: ${availableItems[0].cost}`;
+  upgrade2.innerHTML = `Even More Ducks (${up2})<br> cost: ${availableItems[1].cost}`;
+  upgrade3.innerHTML = `Way More Ducks (${up3})<br> cost: ${availableItems[2].cost}`;
   status.innerHTML = `${addCount} Ducks per second`;
   
 
@@ -67,11 +87,7 @@ function updateDucks(x: number) {
 // Step 4: Continuous Growth
 let timestamp = 0;
 requestAnimationFrame(contGrowth);
-
-//price for upgrades
-let upgrade1Price = 10;
-let upgrade2Price = 100;
-let upgrade3Price = 1000;
+  
 
 function contGrowth(time: number) {
   if (!timestamp || time - timestamp >= 1000) {
@@ -79,6 +95,14 @@ function contGrowth(time: number) {
     updateDucks(addCount);
   }
   // Step 5: check if button should be disabled
+  for(let i = 0; i < availableItems.length; i++) {
+    if (numDucks >= availableItems[i].cost) {
+        upgrade1.disabled = false;
+    } else {
+        upgrade1.disabled = true;
+    }
+  }
+
   if (numDucks >= upgrade1Price) {
     upgrade1.disabled = false;
   } else {
