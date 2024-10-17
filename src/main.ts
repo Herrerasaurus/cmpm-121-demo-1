@@ -73,17 +73,22 @@ function contGrowth(time: number) {
 
 // Step 5 + 6: Purchasing an upgrade
 upgrade1.onclick = () => {
-  addCount += 1;
+  addCount += 0.1;
   numDucks -= 10;
 };
 upgrade2.onclick = () => {
     addCount += 2;
-    numDucks -= 10;
+    numDucks -= 100;
 };
 upgrade3.onclick = () => {
     addCount += 50;
-    numDucks -= 10;
+    numDucks -= 1000;
 };
+
+// Step 6: staus display
+const status = document.createElement("p");
+status.innerHTML = '${addCount} Ducks per second';
+app.append(status);
 
 // add buttons to screen
 app.append(button);
