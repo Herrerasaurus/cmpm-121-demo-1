@@ -33,7 +33,7 @@ let numDucks: number = 0;
 const displayDucks = document.createElement("counter");
 displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
 
-let addCount = 0;
+let addCount: number = 0;
 
 // Step 6: staus display
 const status = document.createElement("p");
@@ -48,11 +48,11 @@ button.onclick = () => {
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
 function updateDucks(x: number) {
   numDucks += x;
-  displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+  displayDucks.innerHTML = `<br><br>${numDucks.toFixed(1)} Ducks<br><br>`;
   upgrade1.innerHTML = `More Ducks (${up1})`;
   upgrade2.innerHTML = `Even More Ducks (${up2})`;
   upgrade3.innerHTML = `Way More Ducks (${up3})`;
-  status.innerHTML = `${addCount} Ducks per second`;
+  status.innerHTML = `${addCount.toFixed(1)} Ducks per second`;
   
 
 }
@@ -61,24 +61,29 @@ function updateDucks(x: number) {
 let timestamp = 0;
 requestAnimationFrame(contGrowth);
 
+//price for upgrades
+let upgrade1Price = 10;
+let upgrade2Price = 100;
+let upgrade3Price = 1000;
+
 function contGrowth(time: number) {
   if (!timestamp || time - timestamp >= 1000) {
     timestamp = time;
     updateDucks(addCount);
   }
   // Step 5: check if button should be disabled
-  if (numDucks >= 10) {
+  if (numDucks >= upgrade1Price) {
     upgrade1.disabled = false;
   } else {
     upgrade1.disabled = true;
   }
   // Check button status for step 6 upgrades
-  if (numDucks >= 100) {
+  if (numDucks >= upgrade2Price) {
     upgrade2.disabled = false;
   } else {
     upgrade2.disabled = true;
   }
-  if (numDucks >= 1000) {
+  if (numDucks >= upgrade3Price) {
     upgrade3.disabled = false
   } else {
     upgrade3.disabled = true;
@@ -92,16 +97,27 @@ upgrade1.onclick = () => {
   addCount += 0.1;
   numDucks -= 10;
   up1++;
+  //increase by a growth factor of 1.15
+  upgrade1Price = upgrade1Price * 1.15;
+  console.log(upgrade1Price);
 };
 upgrade2.onclick = () => {
     addCount += 2;
     numDucks -= 100;
     up2++;
+    //increase by a growth factor of 1.15
+    upgrade2Price = upgrade2Price * 1.15;
+    console.log(upgrade2Price);
+
+
 };
 upgrade3.onclick = () => {
     addCount += 50;
     numDucks -= 1000;
     up3++;
+    //increase by a growth factor of 1.15
+    upgrade3Price = upgrade3Price * 1.15;
+    console.log(upgrade3Price);
 };
 
 
