@@ -13,7 +13,7 @@ app.append(header);
 const button = document.createElement("button");
 button.style.borderRadius = "50%";
 button.style.padding = "20px 20px";
-button.innerHTML = "🦆";
+button.innerHTML = "🍞";
 
 // upgrade counters
 let up1 = 0;
@@ -25,13 +25,14 @@ const totalUpgrades = [up1, up2, up3];
 interface Item {
     name: string,
     cost: number,
-    rate: number
+    rate: number,
+    item: string
   };
-  
+//🍞🥖🥨🥐🥪
 const availableItems : Item[] = [
-    {name: "More Ducks", cost: 10, rate: 0.1},
-    {name: "Even More Ducks", cost: 100, rate: 2},
-    {name: "Way More Ducks", cost: 1000, rate: 50},
+    {name: "Feed Loaf", cost: 10, rate: 0.1, item: "🍞"},
+    {name: "Feed Baguette", cost: 100, rate: 2, item: "🥖"},
+    {name: "Feed Pretzel", cost: 1000, rate: 50, item: "🥨"},
 ];
 
 // Step 5: add new upgrade button
@@ -74,7 +75,7 @@ function updateDucks(x: number) {
 
   for(let i = 0; i < availableItems.length; i++) {
     availableItems[i].cost = Math.round(availableItems[i].cost * 100) / 100;
-    upgradeButtons[i].innerHTML = `${availableItems[i].name} (${totalUpgrades[i]})<br> cost: ${availableItems[i].cost}`;
+    upgradeButtons[i].innerHTML = `${availableItems[i].name} ${availableItems[i].item} (${totalUpgrades[i]})<br> cost: ${availableItems[i].cost}`;
     
   }
 
@@ -118,10 +119,17 @@ for(let i = 0; i < availableItems.length; i++) {
         totalUpgrades[i]++;
         availableItems[i].cost = availableItems[i].cost * 1.15;
 
+        // add perks to attract ducks - 🍞🥖🥨🥐🥪
+        if(availableItems[i].item === "🍞" && totalUpgrades[i]==10) {
+            button.innerHTML += `${availableItems[i].item}`;
+        } else if(!(availableItems[i].item === "🍞")) {
+            button.innerHTML += `${availableItems[i].item}`;
+        }
+
         //add more ducks
         loopCount = availableItems[i].rate;
         if(Math.floor(addCount) - Math.floor(prevCount) > 0) {
-            for(let j = 1; j < loopCount; j++) {
+            for(let j = 0; j < loopCount; j++) {
                 button.innerHTML += "🦆";
                 duckCount++;
                 if(duckCount > 10) {
