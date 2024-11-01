@@ -10,13 +10,19 @@ const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
+let addCount: number = 0;
+// Step 6: staus display
+const status = document.createElement("p");
+status.innerHTML = `${addCount} Ducks per second`;
+app.append(status);
 
 // Step 1: Adding a Button
-const button = document.createElement("button");
-button.style.borderRadius = "50%";
-button.style.padding = "20px 20px";
-button.innerHTML = "🍞";
-button.style.backgroundColor = "darkblue";
+const duckClicker = document.createElement("button");
+duckClicker.style.borderRadius = "50%";
+duckClicker.style.padding = "20px 20px";
+duckClicker.innerHTML = "🍞";
+duckClicker.style.backgroundColor = "darkblue";
+app.append(duckClicker);
 
 // upgrade counters
 const totalUpgrades = [0, 0, 0, 0, 0];
@@ -38,6 +44,12 @@ const availableItems : Item[] = [
     {name: "Sandwich", cost: 100000, rate: 1000, item: "🥪", desc: "A whole meal in bread form! Ducks come in the thousands!"}
 ];
 
+// Step 2: Adding a counter
+let numDucks: number = 0;
+const displayDucks = document.createElement("counter");
+displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+app.append(displayDucks);
+
 // Step 5: add new upgrade button
 const upgradeButtons: HTMLButtonElement[] = [];
 for(let i = 0; i < availableItems.length; i++) {
@@ -47,20 +59,13 @@ for(let i = 0; i < availableItems.length; i++) {
     upgradeButtons.push(upgrade);
 }
 
-
-// Step 2: Adding a counter
-let numDucks: number = 0;
-const displayDucks = document.createElement("counter");
-displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
-
-let addCount: number = 0;
-
-// Step 6: staus display
-const status = document.createElement("p");
-status.innerHTML = `${addCount} Ducks per second`;
+for(let i = 0; i < upgradeButtons.length; i++) {
+    app.append(upgradeButtons[i]);
+}
 
 
-button.onclick = () => {
+
+duckClicker.onclick = () => {
   updateDucks(1);
 };
 
@@ -68,7 +73,7 @@ button.onclick = () => {
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
 function updateDucks(x: number) {
   numDucks += x;
-  button.style.fontSize = ((numDucks*0.1)+ 10) + "px";
+  duckClicker.style.fontSize = ((numDucks*0.1)+ 10) + "px";
 
   // round numbers
   numDucks = Math.round(numDucks * 100) / 100;
@@ -83,8 +88,6 @@ function updateDucks(x: number) {
 
   displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
   status.innerHTML = `${addCount} Ducks per second`;
-  
-
 }
 
 // Step 4: Continuous Growth
@@ -125,21 +128,13 @@ for(let i = 0; i < availableItems.length; i++) {
         loopCount = availableItems[i].rate;
         if(Math.floor(addCount) - Math.floor(prevCount) > 0) {
             for(let j = 0; j < loopCount; j++) {
-                button.innerHTML += "🦆";
+                duckClicker.innerHTML += "🦆";
                 duckCount++;
                 if(duckCount > 10) {
-                    button.innerHTML += "<br>";
+                    duckClicker.innerHTML += "<br>";
                     duckCount = 0;
                 }
             }
         }
     };
-}
-
-// add buttons to screen
-app.append(status);
-app.append(button);
-app.append(displayDucks);
-for(let i = 0; i < upgradeButtons.length; i++) {
-    app.append(upgradeButtons[i]);
 }
