@@ -19,12 +19,7 @@ button.innerHTML = "🍞";
 button.style.backgroundColor = "darkblue";
 
 // upgrade counters
-let up1 = 0;
-let up2 = 0;
-let up3 = 0;
-let up4 = 0;
-let up5 = 0;
-const totalUpgrades = [up1, up2, up3, up4, up5];
+const totalUpgrades = [0, 0, 0, 0, 0];
 
 //Step 9: data-driven design
 interface Item {
@@ -44,17 +39,12 @@ const availableItems : Item[] = [
 ];
 
 // Step 5: add new upgrade button
-const upgrade1 = document.createElement("button");
-// Step 6: add additional upgrades
-const upgrade2 = document.createElement("button");
-const upgrade3 = document.createElement("button");
-const upgrade4 = document.createElement("button");
-const upgrade5 = document.createElement("button");
-const upgradeButtons = [upgrade1, upgrade2, upgrade3, upgrade4, upgrade5];
-
-for(let i = 0; i < upgradeButtons.length; i++) {
-    upgradeButtons[i].innerHTML = `${availableItems[0].name} (${totalUpgrades[i]})`;
-    upgradeButtons[i].style.backgroundColor = "darkblue";
+const upgradeButtons: HTMLButtonElement[] = [];
+for(let i = 0; i < availableItems.length; i++) {
+    const upgrade = document.createElement("button");
+    upgrade.innerHTML = `${availableItems[0].name} (${totalUpgrades[i]})`;
+    upgrade.style.backgroundColor = "darkblue";
+    upgradeButtons.push(upgrade);
 }
 
 
@@ -115,13 +105,13 @@ function contGrowth(time: number) {
         upgradeButtons[i].disabled = true;
     }
   }
-
   requestAnimationFrame(contGrowth);
 }
 
 let duckCount = 0;
 let loopCount = 0;
 let prevCount = 0;
+const priceIncrease = 1.15;
 // Step 5 + 6: Purchasing an upgrade
 for(let i = 0; i < availableItems.length; i++) {
     upgradeButtons[i].onclick = () => {
@@ -129,14 +119,7 @@ for(let i = 0; i < availableItems.length; i++) {
         addCount += availableItems[i].rate;
         numDucks -= availableItems[i].cost;
         totalUpgrades[i]++;
-        availableItems[i].cost = availableItems[i].cost * 1.15;
-
-        // add perks to attract ducks - 🍞🥖🥨🥐🥪
-        /*if(availableItems[i].item === "🍞" && totalUpgrades[i]==10) {
-            button.innerHTML += `${availableItems[i].item}`;
-        } else if(!(availableItems[i].item === "🍞")) {
-            button.innerHTML += `${availableItems[i].item}`;
-        }*/
+        availableItems[i].cost = availableItems[i].cost * priceIncrease;
 
         //add more ducks
         loopCount = availableItems[i].rate;
@@ -152,8 +135,6 @@ for(let i = 0; i < availableItems.length; i++) {
         }
     };
 }
-
-
 
 // add buttons to screen
 app.append(status);
