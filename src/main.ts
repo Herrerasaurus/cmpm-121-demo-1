@@ -54,7 +54,9 @@ app.append(displayDucks);
 const upgradeButtons: HTMLButtonElement[] = [];
 for(let i = 0; i < availableItems.length; i++) {
     const upgrade = document.createElement("button");
-    upgrade.innerHTML = `${availableItems[0].name} (${totalUpgrades[i]})`;
+    upgrade.innerHTML = `${availableItems[i].name} ${availableItems[i].item} (${totalUpgrades[i]})`;
+    upgrade.innerHTML += `<br> cost: ${availableItems[i].cost}`;
+    upgrade.innerHTML += `<br>${availableItems[i].desc}`;
     upgrade.style.backgroundColor = "darkblue";
     upgradeButtons.push(upgrade);
 }
@@ -63,11 +65,10 @@ for(let i = 0; i < upgradeButtons.length; i++) {
     app.append(upgradeButtons[i]);
 }
 
-
-
-duckClicker.onclick = () => {
+duckClicker.addEventListener("click", () => {
   updateDucks(1);
-};
+});
+
 
 // Step 3: Automatic Clicking
 // removing for step 4 // const interval = setInterval(updateDucks, 1000);
@@ -85,20 +86,26 @@ function updateDucks(x: number) {
     upgradeButtons[i].innerHTML += `<br>${availableItems[i].desc}`;
     
   }
-
-  displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
   status.innerHTML = `${addCount} Ducks per second`;
+  displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+
+
 }
 
 // Step 4: Continuous Growth
 let timestamp = 0;
+let seconds = 0;
 requestAnimationFrame(contGrowth);
   
 
 function contGrowth(time: number) {
-  if (!timestamp || time - timestamp >= 1000) {
+  if (!timestamp || time - timestamp >= 100) {
     timestamp = time;
-    updateDucks(addCount);
+    seconds += 0.1;
+    if(seconds >= 1) {
+      seconds = 0;
+      updateDucks(addCount);
+    }
   }
   // Step 5: check if button should be disabled
   for(let i = 0; i < availableItems.length; i++) {
@@ -117,13 +124,13 @@ let prevCount = 0;
 const priceIncrease = 1.15;
 // Step 5 + 6: Purchasing an upgrade
 for(let i = 0; i < availableItems.length; i++) {
-    upgradeButtons[i].onclick = () => {
+    upgradeButtons[i].addEventListener("click", () => {
         prevCount = addCount;
         addCount += availableItems[i].rate;
         numDucks -= availableItems[i].cost;
         totalUpgrades[i]++;
         availableItems[i].cost = availableItems[i].cost * priceIncrease;
-
+        updateDucks(0);
         //add more ducks
         loopCount = availableItems[i].rate;
         if(Math.floor(addCount) - Math.floor(prevCount) > 0) {
@@ -136,5 +143,5 @@ for(let i = 0; i < availableItems.length; i++) {
                 }
             }
         }
-    };
+    });
 }
