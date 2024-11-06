@@ -5,4 +5,6 @@ https://github.com/scso-ucsc/Incremental-Game-Development
     - reformatting the buttons to each have their own row
     - creating a separate area to display player stats
 
-
+https://github.com/6YuQing6/cat-fishing-cmpm121-demo1
+    - updating growth level to display as 🦆/sec
+    - creating a cursor with a bread icon
