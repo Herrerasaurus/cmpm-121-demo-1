@@ -19,7 +19,7 @@ app.append(status);
 const duckClicker = document.createElement("button");
 duckClicker.style.borderRadius = "50%";
 duckClicker.style.padding = "20px 20px";
-duckClicker.innerHTML = "🍞";
+duckClicker.innerHTML = "🦆";
 duckClicker.style.backgroundColor = "darkblue";
 app.append(duckClicker);
 
@@ -90,6 +90,7 @@ function updateDucks(x: number) {
   displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
   updatePlayerStats();
 }
+updateDucks(0);
 
 // separate stats display section
 // taking inspiration from this project: https://github.com/scso-ucsc/Incremental-Game-Development
