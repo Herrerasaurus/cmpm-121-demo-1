@@ -1,7 +1,6 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
-app.style.backgroundColor = "skyblue";
 
 const gameName = "Duck game";
 document.title = gameName;
@@ -57,12 +56,14 @@ for(let i = 0; i < availableItems.length; i++) {
     upgrade.innerHTML = `${availableItems[i].name} ${availableItems[i].item} (${totalUpgrades[i]})`;
     upgrade.innerHTML += `<br> cost: ${availableItems[i].cost}`;
     upgrade.innerHTML += `<br>${availableItems[i].desc}`;
-    upgrade.style.backgroundColor = "darkblue";
+    upgrade.style.backgroundColor = "tan";
     upgradeButtons.push(upgrade);
 }
 
 for(let i = 0; i < upgradeButtons.length; i++) {
     app.append(upgradeButtons[i]);
+    app.append(document.createElement("br"));
+    app.append(document.createElement("br"));
 }
 
 duckClicker.addEventListener("click", () => {
@@ -82,14 +83,39 @@ function updateDucks(x: number) {
 
   for(let i = 0; i < availableItems.length; i++) {
     availableItems[i].cost = Math.round(availableItems[i].cost * 100) / 100;
-    upgradeButtons[i].innerHTML = `${availableItems[i].name} ${availableItems[i].item} (${totalUpgrades[i]})<br> cost: ${availableItems[i].cost}`;
-    upgradeButtons[i].innerHTML += `<br>${availableItems[i].desc}`;
-    
+    upgradeButtons[i].innerHTML = `${availableItems[i].name} ${availableItems[i].item} <br> cost: ${availableItems[i].cost}`;
+    upgradeButtons[i].innerHTML += `<br>${availableItems[i].desc}`;  
   }
-  status.innerHTML = `${addCount} Ducks per second`;
+  status.innerHTML = `${addCount} 🦆/sec`;
   displayDucks.innerHTML = `<br><br>${numDucks} Ducks<br><br>`;
+  updatePlayerStats();
+}
 
+// separate stats display section
+// taking inspiration from this project: https://github.com/scso-ucsc/Incremental-Game-Development
+const stats = document.createElement("div");
+stats.style.position = "absolute";
+stats.style.top = "0";
+stats.style.right = "0";
+stats.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+stats.style.padding = "1em";
+stats.style.border = "1px solid black";
+stats.style.borderRadius = "1em";
+stats.style.margin = "1em";
+stats.style.textAlign = "right";
+stats.style.zIndex = "1000";
 
+function updatePlayerStats(){
+  stats.innerHTML = `
+    <h2>Player Stats</h2>
+  `;
+  //for each item, display the number of upgrades
+  for(let i = 0; i < availableItems.length; i++) {
+    stats.innerHTML += `
+      <p>${availableItems[i].name}: ${totalUpgrades[i]}</p>
+    `;
+  }
+  app.append(stats);
 }
 
 // Step 4: Continuous Growth
